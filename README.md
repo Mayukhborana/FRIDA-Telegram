@@ -214,8 +214,9 @@ Thank you for using Frida!
 
  <pre>
 frida -U -p 15341 -l final/finalnative.js 
-
  </pre>
+
+  <pre>
      ____
     / _  |   Frida 17.3.2 - A world-class dynamic instrumentation toolkit
    | (_| |
@@ -285,7 +286,7 @@ Total calls recorded: 1
 
  </pre>
 
-
+TO Do manual (when script is running):
 While Frida is running, use Telegram to test:
 
 Test 1 - Contacts Permission:
