@@ -1,21 +1,17 @@
-#Automated security analysis tool that hooks into Telegram to monitor both Java API calls and native C++ function calls.
-
-1. Bash Script (collect_run.sh)
+# Automated security analysis tool that hooks into Telegram to monitor both Java API calls and native C++ function calls.
+Bash Script (collect_run.sh)
 Purpose: Automates the entire data collection process
+<pre>
+./collect_run.sh 21762
+</pre>
 
-Steps:
+* Starts Frida with both Java and native hooks
 
-Starts Frida with both Java and native hooks
+* Waits 4 seconds for hooks to initialize
 
-Waits 4 seconds for hooks to initialize
+**Either runs automated tests (monkey{ Google's built-in automated testing tool }) or waits 30 seconds for manual testing.**
 
-Either runs automated tests (monkey) or waits 30 seconds for manual testing
-
-Stops Frida and processes the data
-
-Separates Java vs Native events into different files
-
-2. Java Hooks (java_host_decode.js)
+# Java Hooks (java_host_decode.js)
 Purpose: Monitors dangerous Android APIs and decodes data
 
 Hooked Methods:
@@ -40,7 +36,7 @@ Identifies file types (JPEG, XML, etc.) from byte patterns
 
 Captures stack traces to see where calls come from
 
-3. Native Hooks (native_host.js)
+# Native Hooks (native_host.js)
 Purpose: Monitors Telegram's C++ code
 
 What it tries to do:
@@ -51,7 +47,16 @@ List exported functions from these libraries
 Hook the first 8 functions from each library
 
 Log when native functions are called with arguments
-You captured:
+
+
+
+
+
+## Parse traces
+<pre>
+   python3 parse_traces.py tg_trace.jsonl tg_native_trace.jsonl
+</pre>
+captured:
 ✅ File operations - JPEG images, XML files being written
 ✅ Database queries - Reading contacts, media gallery
 ✅ Location access - GPS permission checks
@@ -66,51 +71,11 @@ FileOutputStream.write - Writing files (potential data exfiltration)
 Location and camera APIs being called
 
 
-## Hook native functions
-Load native hook:
-   frida -U -n org.telegram.messenger -l hooks/native_hook.js
-
-## Parse traces
-   python tools/parse_traces.py
-
-## Notes
-- If Java hooks don't show events, ensure capture script attached to correct package.
-- If native libs are stripped, pull .so from APK and inspect with `strings` or `readelf`.
-- Sanitize traces.jsonl before sharing (remove phone numbers / messages).
-
-
-./collect_run.sh 5974  
-also change at ./collect_run.sh
-./collect_run.sh 21762  Telegram  
-
-
-
-
-#Push
-adb push frida-server-17.3.2-android-arm64 /data/local/tmp/frida-server
-
-adb shell "chmod 755 /data/local/tmp/frida-server"
-
-   frida-ps -U 
-
-Show
-adb shell ls -l /data/local/tmp/frida-server || echo "no frida binary"
-
-
-To run Server
-adb shell "nohup /data/local/tmp/frida-server >/data/local/tmp/frida.log 2>&1 & echo \$! > /data/local/tmp/frida.pid"
-
-#check weather running or not 
-adb shell "ps -A | grep -i frida || echo no-frida-process"
-root          7063     1   10866316  40060 do_sys_poll         0 S frida-server
 
 
 
 
 
-
-
-python3 parse_traces.py tg_trace.jsonl tg_native_trace.jsonl
 
 
 
