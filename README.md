@@ -107,7 +107,7 @@ Also Note the PID of Telegram.
 
 # Experiments:
 
-**Dangerous permission APIs hooked**
+**Task 1 : Dangerous permission APIs hooked**
 * Watches when Telegram asks for sensitive permissions like camera, location, contacts, etc
 * Shows which permission was checked and whether it was granted or denied
 * Records the time when each check happens
@@ -154,7 +154,12 @@ Note(By manual clicks on The Telegram App):
 
 
 
-**Native library identified**
+**Task 2 : Native library identified**
+* searches for Telegram's C++ code files
+* Native Library: C++ code files (.so files) that apps use for fast operations
+* Process.enumerateModules(): Gets list of all code files currently loaded
+* Multiple libraries if they exist
+* 
   <pre>
 frida -U -p 8812 -l frida/findnativelibrary.js 
 </pre>
@@ -169,7 +174,33 @@ Attaching...
    Size: 28426240
 </pre>
 
-**Native functions hooked**
+This tells us Telegram uses libtmessages.49.so - a 28MB C++ library for its core functions.
+
+
+**Task 3 : Native functions hooked**
+Watches for when Telegram runs its C++ code using two methods:
+
+Method 1: Library Loading Detection
+Checks every 2 seconds if Telegram loads new C++ code files
+
+Only shows each library once (no repeats)
+
+Alerts when libtmessages.49.so loads = C++ code is starting
+
+Method 2: Thread Creation Detection
+Checks every 1 second if new threads are created
+
+New threads = background tasks running, often C++ code
+
+Alerts when thread count increases = native activity detected
+
+What It Detects:
+When Telegram first starts and loads its C++ engine
+
+When you use complex features (calls, encryption, media processing)
+
+When background tasks run in C++ for better performance
+
   <pre>
 frida -U -p 8812 -l frida/native/hook_native_functions.js
   </pre>
@@ -182,9 +213,16 @@ frida -U -p 8812 -l frida/native/hook_native_functions.js
 🔧 NATIVE ACTIVITY: New thread created   
  </pre>
 
-**For calls: Collection of permission**
 
-Sequence of calls recorded
+**Task 4 : For calls: Collection of permission**
+* Shows exact order of security checks
+
+* Reveals when and what permissions Telegram uses
+
+* Provides timeline data for analysis
+
+* Demonstrates real app behavior patterns
+* Sequence of calls recorded
 
  <pre>
 frida -U -p 15341 -l frida/finalcalls.js
@@ -215,6 +253,23 @@ Thank you for using Frida!
  </pre>
 
 
+
+
+
+
+
+
+
+**Task 5 : For monitoring thread creation**
+
+* New threads = Telegram starting background tasks
+
+* Thread count increases = Native C++ code running
+
+* Timing and sequence of when native activity happens
+* Records each event with timestamp and thread count
+
+
  <pre>
 frida -U -p 15341 -l final/finalnative.js 
  </pre>
@@ -237,7 +292,16 @@ Attaching...
 [Android Emulator 5554::PID::15341 ]-> 🔧 Native thread created - Total: 102
  </pre>
 
-Both together:
+
+
+**Task 6 :Both together: combines both permission checks AND native activity into one timeline** 
+
+* Permission checks (when Telegram asks for camera, location, etc.)
+
+*  Native library loading (when Telegram runs C++ code)
+
+* Combined sequence showing the order everything happens
+
  <pre>
  frida -U -p 15341 -l final/combine.js
 
