@@ -308,7 +308,7 @@ Attaching...
   </pre>
 
   <pre>
-     ____
+        ____
     / _  |   Frida 17.3.2 - A world-class dynamic instrumentation toolkit
    | (_| |
     > _  |   Commands:
@@ -319,37 +319,29 @@ Attaching...
    . . . .   More info at https://frida.re/docs/home/
    . . . .
    . . . .   Connected to Android Emulator 5554 (id=emulator-5554)
-Attaching...                                                            
-🚀 COMBINED PERMISSION + NATIVE SEQUENCE
-✅ Permission hook READY
-⏰ Collecting BOTH permissions + native for 30 seconds...
-📱 Test: Camera, Contacts, Location, Voice, Files in Telegram
-[Android Emulator 5554::PID::15341 ]-> 🔧 NATIVE: libtmessages.49.so loaded
+Attaching...
+🚀 JSONL COMBINED SEQUENCE RECORDER
+✅ Permission hook ACTIVE
+🎯 JSONL Recording STARTED!
+💡 Type 'showResults()' to see sequence
+💡 Type 'exportJSONL()' to export all data
+💡 Type 'stopRecording()' to show final results
+[Android Emulator 5554::PID::21762 ]-> {"type":"NATIVE_LIB","name":"libtmessages.49.so","base":"0x7257206000","size":28426240,"path":"/data/app/~~0ziaWGPT6juNvsaCQpOGtw==/org.telegram.messenger.web-g2ZNXIc7xzPHbHnq8dnFQw==/lib/arm64/libtmessages.49.so","timestamp":"2025-10-02T16:45:54.581Z"}
+{"type":"PERMISSION","name":"android.permission.CONFIGURE_WIFI_DISPLAY","result":"DENIED","timestamp":"2025-10-02T16:46:17.120Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.ACCESS_NETWORK_STATE","result":"GRANTED","timestamp":"2025-10-02T16:46:17.193Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.ACCESS_NETWORK_STATE","result":"GRANTED","timestamp":"2025-10-02T16:46:55.768Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.ACCESS_NETWORK_STATE","result":"GRANTED","timestamp":"2025-10-02T16:46:55.798Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.ACCESS_NETWORK_STATE","result":"GRANTED","timestamp":"2025-10-02T16:46:55.808Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.ACCESS_FINE_LOCATION","result":"DENIED","timestamp":"2025-10-02T16:46:55.815Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.ACCESS_NETWORK_STATE","result":"GRANTED","timestamp":"2025-10-02T16:46:55.856Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.ACCESS_FINE_LOCATION","result":"DENIED","timestamp":"2025-10-02T16:46:55.857Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"com.google.android.providers.gsf.permission.READ_GSERVICES","result":"GRANTED","timestamp":"2025-10-02T16:46:57.770Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.MANAGE_EXTERNAL_STORAGE","result":"DENIED","timestamp":"2025-10-02T16:48:02.339Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.MANAGE_EXTERNAL_STORAGE","result":"DENIED","timestamp":"2025-10-02T16:48:02.345Z","pid":21762,"uid":10214}
+{"type":"PERMISSION","name":"android.permission.MANAGE_EXTERNAL_STORAGE","result":"DENIED","timestamp":"2025-10-02T16:48:03.737Z","pid":21762,"uid":10214}
+exit
 
-📊 COMBINED CALL SEQUENCE:
-Total calls recorded: 1
-1. 10:33:02 AM - NATIVE: libtmessages.49.so loaded
-
-🎉 COMBINED SEQUENCE COMPLETE!
-🔒 PERMISSION: android.permission.ACCESS_FINE_LOCATION
-🔒 PERMISSION: android.permission.ACCESS_NETWORK_STATE
-🔒 PERMISSION: android.permission.ACCESS_FINE_LOCATION
-🔒 PERMISSION: android.permission.ACCESS_NETWORK_STATE
-🚀 WORKING COMBINED SEQUENCE
-✅ Permission hook ACTIVE
-🎯 Recording STARTED!
-💡 Type 'showResults()' to see sequence anytime
-💡 Type 'stopRecording()' when done testing
-🚀 WORKING COMBINED SEQUENCE
-✅ Permission hook ACTIVE
-🎯 Recording STARTED!
-💡 Type 'showResults()' to see sequence anytime
-💡 Type 'stopRecording()' when done testing
-🚀 WORKING COMBINED SEQUENCE
-✅ Permission hook ACTIVE
-🎯 Recording STARTED!
-💡 Type 'showResults()' to see sequence anytime
-💡 Type 'stopRecording()' when done t
+Thank you for using Frida!
 
  </pre>
 
