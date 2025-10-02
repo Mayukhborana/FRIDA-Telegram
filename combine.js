@@ -1,4 +1,4 @@
-console.log("🚀 WORKING COMBINED SEQUENCE");
+console.log("🚀 JSONL COMBINED SEQUENCE RECORDER");
 
 var allCalls = [];
 
@@ -12,11 +12,14 @@ Java.perform(function() {
             type: "PERMISSION",
             name: permission,
             result: result === 0 ? "GRANTED" : "DENIED",
-            timestamp: new Date().toLocaleTimeString()
+            timestamp: new Date().toISOString(),
+            pid: pid,
+            uid: uid
         };
         allCalls.push(entry);
         
-        console.log("🔒 RECORDED: " + permission);
+        // Print JSONL to console
+        console.log(JSON.stringify(entry));
         return result;
     };
     console.log("✅ Permission hook ACTIVE");
@@ -28,13 +31,19 @@ function checkNative() {
     var modules = Process.enumerateModules();
     modules.forEach(function(module) {
         if (!loadedLibs[module.name] && module.name.includes('tmessages')) {
-            allCalls.push({
-                type: "NATIVE",
+            var entry = {
+                type: "NATIVE_LIB",
                 name: module.name,
-                timestamp: new Date().toLocaleTimeString()
-            });
-            console.log("🔧 RECORDED: " + module.name);
+                base: module.base.toString(),
+                size: module.size,
+                path: module.path,
+                timestamp: new Date().toISOString()
+            };
+            allCalls.push(entry);
             loadedLibs[module.name] = true;
+            
+            // Print JSONL to console
+            console.log(JSON.stringify(entry));
         }
     });
 }
@@ -42,29 +51,34 @@ function checkNative() {
 // Check every 3 seconds
 setInterval(checkNative, 3000);
 
-// DON'T auto-timeout - let user control when to stop
-console.log("🎯 Recording STARTED!");
-console.log("💡 Type 'showResults()' to see sequence anytime");
-console.log("💡 Type 'stopRecording()' when done testing");
-
-// Function to show results anytime
+// Function to show results
 function showResults() {
-    console.log("\n📊 CURRENT SEQUENCE:");
-    if (allCalls.length === 0) {
-        console.log("No calls recorded yet. Use Telegram features!");
-    } else {
-        allCalls.forEach(function(call, index) {
-            if (call.type === "PERMISSION") {
-                console.log((index + 1) + ". " + call.timestamp + " - PERMISSION: " + call.name + " - " + call.result);
-            } else {
-                console.log((index + 1) + ". " + call.timestamp + " - NATIVE: " + call.name);
-            }
-        });
-    }
+    console.log("\n📊 CURRENT SEQUENCE (" + allCalls.length + " entries):");
+    allCalls.forEach(function(call, index) {
+        if (call.type === "PERMISSION") {
+            console.log((index + 1) + ". " + call.timestamp + " - PERMISSION: " + call.name + " - " + call.result);
+        } else {
+            console.log((index + 1) + ". " + call.timestamp + " - NATIVE: " + call.name);
+        }
+    });
 }
 
-// Function to stop recording
+// Function to export all data as JSONL
+function exportJSONL() {
+    console.log("\n💾 EXPORTING ALL DATA AS JSONL:");
+    allCalls.forEach(function(call) {
+        console.log(JSON.stringify(call));
+    });
+    console.log("✅ Exported " + allCalls.length + " entries");
+}
+
+console.log("🎯 JSONL Recording STARTED!");
+console.log("💡 Type 'showResults()' to see sequence");
+console.log("💡 Type 'exportJSONL()' to export all data");
+console.log("💡 Type 'stopRecording()' to show final results");
+
 function stopRecording() {
-    console.log("\n🎉 FINAL SEQUENCE COLLECTED!");
+    exportJSONL();
     showResults();
+    console.log("🎉 RECORDING COMPLETE!");
 }

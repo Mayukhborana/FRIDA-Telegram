@@ -1,0 +1,23 @@
+     ____
+    / _  |   Frida 17.3.2 - A world-class dynamic instrumentation toolkit
+   | (_| |
+    > _  |   Commands:
+   /_/ |_|       help      -> Displays the help system
+   . . . .       object?   -> Display information about 'object'
+   . . . .       exit/quit -> Exit
+   . . . .
+   . . . .   More info at https://frida.re/docs/home/
+   . . . .
+   . . . .   Connected to Android Emulator 5554 (id=emulator-5554)
+Attaching...
+Starting Permission Monitor
+Permission monitor ready
+[Android Emulator 5554::PID::15341 ]-> {"type":"PERMISSION_CHECK","permission":"android.permission.ACCESS_FINE_LOCATION","result":"GRANTED","timestamp":"2025-10-02T16:10:43.442Z","pid":15341,"uid":10213}
+{"type":"PERMISSION_CHECK","permission":"android.permission.ACCESS_FINE_LOCATION","result":"GRANTED","timestamp":"2025-10-02T16:10:43.482Z","pid":15341,"uid":10213}
+{"type":"PERMISSION_CHECK","permission":"android.permission.ACCESS_FINE_LOCATION","result":"GRANTED","timestamp":"2025-10-02T16:10:46.579Z","pid":15341,"uid":10213}
+{"type":"PERMISSION_CHECK","permission":"android.permission.ACCESS_FINE_LOCATION","result":"GRANTED","timestamp":"2025-10-02T16:10:46.598Z","pid":15341,"uid":10213}
+{"type":"PERMISSION_CHECK","permission":"android.permission.ACCESS_FINE_LOCATION","result":"GRANTED","timestamp":"2025-10-02T16:11:26.335Z","pid":15341,"uid":10213}
+{"type":"PERMISSION_CHECK","permission":"android.permission.ACCESS_FINE_LOCATION","result":"GRANTED","timestamp":"2025-10-02T16:11:26.360Z","pid":15341,"uid":10213}
+exit
+
+Thank you for using Frida!

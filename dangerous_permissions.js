@@ -1,7 +1,7 @@
-console.log("🔒 Hooking Dangerous Permissions");
+console.log("Starting Permission Monitor");
 
 Java.perform(function() {
-    // Dangerous permissions to monitor
+    // Permissions to watch
     var dangerous = [
         "android.permission.READ_CONTACTS",
         "android.permission.CAMERA",
@@ -10,21 +10,28 @@ Java.perform(function() {
         "android.permission.READ_EXTERNAL_STORAGE"
     ];
 
-    // Hook permission checks - FIXED: specify which overload to use
     var Activity = Java.use("android.app.Activity");
     
-    // Use the common 3-parameter version
     Activity.checkPermission.overload('java.lang.String', 'int', 'int').implementation = function(permission, pid, uid) {
         var result = this.checkPermission(permission, pid, uid);
         
         if (dangerous.includes(permission)) {
-            console.log("🚨 DANGEROUS PERMISSION: " + permission);
-            console.log("   Result: " + (result === 0 ? "GRANTED" : "DENIED"));
-            console.log("   Time: " + new Date().toLocaleTimeString());
+            // Create JSON object
+            var logEntry = {
+                "type": "PERMISSION_CHECK",
+                "permission": permission,
+                "result": result === 0 ? "GRANTED" : "DENIED",
+                "timestamp": new Date().toISOString(),
+                "pid": pid,
+                "uid": uid
+            };
+            
+            // Print as JSONL (JSON Lines format)
+            console.log(JSON.stringify(logEntry));
         }
         
         return result;
     };
 
-    console.log("✅ Ready! Monitoring " + dangerous.length + " dangerous permissions");
+    console.log("Permission monitor ready");
 });
