@@ -108,9 +108,12 @@ Also Note the PID of Telegram.
 # Experiments:
 
 **Dangerous permission APIs hooked**
+* Watches when Telegram asks for sensitive permissions like camera, location, contacts, etc
+* Shows which permission was checked and whether it was granted or denied
+* Records the time when each check happens
 
 <pre>
-frida -U -p 8812 -l final/dangerous_permissions.js
+frida -U -p 15341 -l dangerous_permissions.js > permissions_log.jsonl
 </pre>
 
   <pre>
