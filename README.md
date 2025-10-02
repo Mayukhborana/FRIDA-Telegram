@@ -239,9 +239,8 @@ Both together:
 
   </pre>
 
-   <pre>
+  <pre>
      ____
-    
     / _  |   Frida 17.3.2 - A world-class dynamic instrumentation toolkit
    | (_| |
     > _  |   Commands:
