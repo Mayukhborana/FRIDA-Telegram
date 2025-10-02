@@ -150,10 +150,6 @@ Note(By manual clicks on The Telegram App):
 
 * Files → Send a file
 
-
-
-
-
 **Task 2 : Native library identified**
 * searches for Telegram's C++ code files
 * Native Library: C++ code files (.so files) that apps use for fast operations
@@ -253,13 +249,6 @@ Thank you for using Frida!
  </pre>
 
 
-
-
-
-
-
-
-
 **Task 5 : For monitoring thread creation**
 
 * New threads = Telegram starting background tasks
@@ -303,8 +292,7 @@ Attaching...
 * Combined sequence showing the order everything happens
 
  <pre>
- frida -U -p 15341 -l final/combine.js
-
+  frida -U -p 21762 -l combine.js > telegram_data.jsonl
   </pre>
 
   <pre>
@@ -342,7 +330,6 @@ Attaching...
 exit
 
 Thank you for using Frida!
-
  </pre>
 
 TO Do manual (when script is running):
