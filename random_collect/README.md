@@ -49,10 +49,7 @@ Hook the first 8 functions from each library
 Log when native functions are called with arguments
 
 
-
-
-
-## Parse traces
+## Parse traces Results saved in the parsed_output directory!
 <pre>
    python3 parse_traces.py tg_trace.jsonl tg_native_trace.jsonl
 </pre>
@@ -61,33 +58,12 @@ captured:
 ✅ Database queries - Reading contacts, media gallery
 ✅ Location access - GPS permission checks
 ✅ Camera usage - Photo operations
-✅ Media operations - Audio/video processing
-
-Evidence of Dangerous Permission Usage:
-ContentResolver.query - Reading user data
-
-FileOutputStream.write - Writing files (potential data exfiltration)
-
-Location and camera APIs being called
-
-
-
-
-
-
-
-
-
-
-The data collection is working and you're getting great results. The numbers you see (like 60,63,120,109,108...) are actually file data being written - these are bytes being saved to files.
-
-What You're Capturing:
-1. File Operations - Telegram is writing files:
-XML files (line 1: 60,63,120,109,108 = <?xml in bytes)
-
-JPEG images (lines with -1,-40,-1,-32 = JPEG file header bytes)
-
-Binary data (encrypted messages or media)
+✅ Media operations - Audio/video processing { JPEG images (lines with -1,-40,-1,-32 = JPEG file header bytes)}
+✅Evidence of Dangerous Permission Usage: 
+* ContentResolver.query - Reading user data
+* FileOutputStream.write - Writing files (potential data exfiltration)
+* Location and camera APIs being called
+✅Binary data (encrypted messages or media)
 
 2. Database Queries - Telegram accessing your data:
 ContentResolver.query - Reading contacts, messages, media
@@ -96,17 +72,11 @@ COUNT(_id) - Counting database records
 
 bucket_display_name - Accessing photo gallery
 
-Your Data Shows:
+Data Shows:
 ✅ File operations (JPEG, XML files)
 ✅ Database access (contacts, gallery)
 ✅ Permission checks
 ✅ Thread activity
-
-The native library should appear when you use features like:
-
-Voice calls
-
-Video messages
 
 Encrypted chats
 
