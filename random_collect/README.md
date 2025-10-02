@@ -77,9 +77,21 @@ Data Shows:
 ✅ Database access (contacts, gallery)
 ✅ Permission checks
 ✅ Thread activity
+✅ Encrypted chats
+✅ Media processing
 
-Encrypted chats
 
-Media processing
 
-Your collection is successful - you're capturing real Telegram activity!
+
+# Explaination of 1st line of csv:
+Timestamp: 1759427497179 - When it happened (Feb 2, 2025, 10:51 AM)
+
+Class: java.io.FileOutputStream - Writing to a file
+
+Method: write - Saving data to storage
+
+Args: 60,63,120,109,108... - The actual data being written (XML file bytes)
+
+Thread: queued-work-looper - Background worker thread
+
+Stack: java.io.FileOutputStream.write(Native Method) - Called from native C++ code
