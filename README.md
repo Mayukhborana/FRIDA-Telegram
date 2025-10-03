@@ -155,8 +155,7 @@ Note(By manual clicks on The Telegram App):
 * Native Library: C++ code files (.so files) that apps use for fast operations
 * Process.enumerateModules(): Gets list of all code files currently loaded
 * Multiple libraries if they exist
-* 
-  <pre>
+<pre>
 frida -U -p 8812 -l frida/findnativelibrary.js 
 </pre>
 
